@@ -25,7 +25,6 @@ func citireMatriceAdiacenta() [][]int {
 		vals := strings.Split(strings.TrimPrefix(line, "\n"), " ")
 
 		for j, value := range vals {
-			//fmt.Println(fmt.Sprintf("%d %d \n",i,j))
 			matrix[i][j], _ = strconv.Atoi(value)
 		}
 	}
@@ -40,13 +39,13 @@ func citireMatriceIncidenta() [][]int {
 		fmt.Println("Eroare citire matrice de incidenta.")
 	}
 
-	lines := strings.Split(string(file), "\n")
+	lines := strings.Split(string(file), "\r")
 	n := len(lines)
 
 	matrix := make([][]int, n)
 
 	for i, line := range lines {
-		vals := strings.Split(line, " ")
+		vals := strings.Split(strings.TrimPrefix(line, "\n"), " ")
 
 		matrix[i] = make([]int, len(vals))
 
@@ -73,13 +72,13 @@ func adiacentaToIncidenta(matrix [][]int) [][]int {
 	matrixI := make([][]int, n)
 	nodeIndex := 0
 
-	for i := 0;i< n;i++{
+	for i := 0; i < n; i++ {
 		matrixI[i] = make([]int, nodes)
 	}
 
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			if matrix[i][j] == 1{
+			if matrix[i][j] == 1 {
 				matrixI[i][nodeIndex] = 1
 				matrixI[j][nodeIndex] = -1
 				nodeIndex++
@@ -90,10 +89,101 @@ func adiacentaToIncidenta(matrix [][]int) [][]int {
 	return matrixI
 }
 
-func main() {
-	matrix := citireMatriceAdiacenta()
-	fmt.Println(matrix)
+func adiacentaToListaArce(matrix [][]int) ([]int, []int) {
+	e1, e2 := []int{}, []int{}
+	n := len(matrix)
 
-	matrixI := adiacentaToIncidenta(matrix)
-	fmt.Println(matrixI)
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if matrix[i][j] == 1 {
+				e1 = append(e1, i+1)
+				e2 = append(e2, j+1)
+			}
+		}
+	}
+
+	return e1, e2
+}
+
+func adiacentaToListaSuc(matrix [][]int) ([]int, []int) {
+	e1, e2 := []int{}, []int{}
+	poz := 1
+	n := len(matrix)
+	var found bool
+
+	for i := 0; i < n; i++ {
+		e1 = append(e1, poz)
+		found = false
+
+		for j := 0; j < n; j++ {
+			if matrix[i][j] == 1 {
+				e2 = append(e2, j+1)
+				found = true
+				poz++
+			}
+		}
+
+		if !found {
+			poz++
+		}
+	}
+
+	e1 = append(e1, poz-1)
+
+	return e1, e2
+}
+
+func adiacentaToListaPre(matrix [][]int) ([]int, []int) {
+	e1, e2 := []int{}, []int{}
+	poz := 1
+	n := len(matrix)
+	var found bool
+
+	for i := 0; i < n; i++ {
+		e1 = append(e1, poz)
+		found = false
+
+		for j := 0; j < n; j++ {
+			if matrix[j][i] == 1 {
+				e2 = append(e2, j+1)
+				found = true
+				poz++
+			}
+		}
+
+		if !found {
+			poz++
+		}
+	}
+
+	e1 = append(e1, poz-1)
+
+	return e1, e2
+}
+
+func IncidentaToAdiacenta(matrix [][]int) [][]int {
+
+}
+
+func main() {
+	/*	matrix := citireMatriceAdiacenta()
+		fmt.Println(matrix)
+
+		matrixI := adiacentaToIncidenta(matrix)
+		fmt.Println(matrixI)
+
+		e1,e2 := adiacentaToListaArce(matrix)
+		fmt.Println(e1)
+		fmt.Println(e2)
+
+		s1, s2 := adiacentaToListaSuc(matrix)
+		fmt.Println(s1)
+		fmt.Println(s2)
+
+		p1, p2 := adiacentaToListaPre(matrix)
+		fmt.Println(p1)
+		fmt.Println(p2)*/
+
+	matrix := citireMatriceIncidenta()
+	fmt.Println(matrix)
 }
