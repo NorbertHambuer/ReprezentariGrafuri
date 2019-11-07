@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -377,29 +379,11 @@ func incidentaToListaPre(matrix [][]int) ([]int, []int) {
 		if !found {
 			poz++
 		}
-
 	}
 
 	e1 = append(e1, poz-1)
 
 	return e1, e2
-}
-
-func getNrNoduri(listaArce []int) int {
-	if len(listaArce) == 0 {
-		return 0
-	}
-
-	nr := 1
-	lastNode := 1
-	for _, val := range listaArce {
-		if lastNode != val {
-			lastNode = val
-			nr++
-		}
-	}
-
-	return nr
 }
 
 func listaArceToAdiacenta(n int, v []int, w []int) [][]int {
@@ -741,14 +725,37 @@ func listaPreToListaSuc(v []int, w []int) ([]int, []int) {
 	return e1, e2
 }
 
+func printMeniu() {
+	fmt.Println("1 - Transformare matrice adiacenta")
+	fmt.Println("2 - Transformare matrice incidenta")
+	fmt.Println("3 - Transformare lista arce")
+	fmt.Println("4 - Transformare lista succesori")
+	fmt.Println("5 - Transformare lista predecesor")
+	fmt.Println("6 - Inchidere")
+}
+
 func main() {
-	/*		matrix := citireMatriceAdiacenta()
+	end := false
+	reader := bufio.NewReader(os.Stdin)
+	for !end {
+		printMeniu()
+		text, _ := reader.ReadString('\n')
+
+		cheie, err := strconv.Atoi(strings.TrimSpace(text))
+
+		if err != nil || cheie < 0 || cheie > 6 {
+			fmt.Println("Comanda invalida")
+		}
+
+		switch cheie {
+		case 1:
+			matrix := citireMatriceAdiacenta()
 			fmt.Println(matrix)
 
 			matrixI := adiacentaToIncidenta(matrix)
 			fmt.Println(matrixI)
 
-			e1,e2 := adiacentaToListaArce(matrix)
+			e1, e2 := adiacentaToListaArce(matrix)
 			fmt.Println(e1)
 			fmt.Println(e2)
 
@@ -758,9 +765,9 @@ func main() {
 
 			p1, p2 := adiacentaToListaPre(matrix)
 			fmt.Println(p1)
-			fmt.Println(p2)*/
-
-	/*		matrix := citireMatriceIncidenta()
+			fmt.Println(p2)
+		case 2:
+			matrix := citireMatriceIncidenta()
 			fmt.Println(matrix)
 
 			matrixI := incidentaToAdiacenta(matrix)
@@ -776,46 +783,46 @@ func main() {
 
 			p1, p2 := incidentaToListaPre(matrix)
 			fmt.Println(p1)
-			fmt.Println(p2)*/
+			fmt.Println(p2)
+		case 3:
+			n, e1, e2 := citireListaArce()
+			fmt.Println(n)
+			fmt.Println(e1)
+			fmt.Println(e2)
 
-	/*	n, e1, e2 := citireListaArce()
-		fmt.Println(n)
-		fmt.Println(e1)
-		fmt.Println(e2)
+			matrix := listaArceToAdiacenta(n, e1, e2)
+			fmt.Println(matrix)
 
-		matrix := listaArceToAdiacenta(n, e1, e2)
-		fmt.Println(matrix)
+			matrixI := listaArceToIncidenta(n, e1, e2)
+			fmt.Println(matrixI)
 
-		matrixI := listaArceToIncidenta(n, e1, e2)
-		fmt.Println(matrixI)
+			s1, s2 := listaArceToListaSuc(n, e1, e2)
+			fmt.Println(s1)
+			fmt.Println(s2)
 
-		s1, s2 := listaArceToListaSuc(n, e1, e2)
-		fmt.Println(s1)
-		fmt.Println(s2)
+			p1, p2 := listaArceToListaPre(n, e1, e2)
+			fmt.Println(p1)
+			fmt.Println(p2)
+		case 4:
+			e1, e2 := citireListaSuc()
+			fmt.Println(e1)
+			fmt.Println(e2)
 
-		p1, p2 := listaArceToListaPre(n, e1, e2)
-		fmt.Println(p1)
-		fmt.Println(p2)*/
+			matrix := listaSucToAdiacenta(e1, e2)
+			fmt.Println(matrix)
 
-	/*	e1, e2 := citireListaSuc()
-		fmt.Println(e1)
-		fmt.Println(e2)
+			matrixI := listaSucToIncidenta(e1, e2)
+			fmt.Println(matrixI)
 
-		matrix := listaSucToAdiacenta(e1, e2)
-		fmt.Println(matrix)
+			s1, s2 := listaSucToListaArce(e1, e2)
+			fmt.Println(s1)
+			fmt.Println(s2)
 
-		matrixI := listaSucToIncidenta(e1, e2)
-		fmt.Println(matrixI)
-
-		s1, s2 := listaSucToListaArce(e1, e2)
-		fmt.Println(s1)
-		fmt.Println(s2)
-
-		p1, p2 := listaSucToListaPre(e1, e2)
-		fmt.Println(p1)
-		fmt.Println(p2)*/
-
-	/*		e1, e2 := citireListaPre()
+			p1, p2 := listaSucToListaPre(e1, e2)
+			fmt.Println(p1)
+			fmt.Println(p2)
+		case 5:
+			e1, e2 := citireListaPre()
 			fmt.Println(e1)
 			fmt.Println(e2)
 
@@ -831,6 +838,10 @@ func main() {
 
 			p1, p2 := listaPreToListaSuc(e1, e2)
 			fmt.Println(p1)
-			fmt.Println(p2)*/
-
+			fmt.Println(p2)
+		case 6:
+			end = true
+		}
+		fmt.Println()
+	}
 }
