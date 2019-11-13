@@ -725,6 +725,19 @@ func listaPreToListaSuc(v []int, w []int) ([]int, []int) {
 	return e1, e2
 }
 
+func printMatrice(matrix [][]int) {
+	n := len(matrix)
+	m := len(matrix[0])
+
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			fmt.Print(fmt.Sprintf("%d ", matrix[i][j]))
+		}
+
+		fmt.Println()
+	}
+}
+
 func printMeniu() {
 	fmt.Println("1 - Transformare matrice adiacenta")
 	fmt.Println("2 - Transformare matrice incidenta")
@@ -749,96 +762,145 @@ func main() {
 
 		switch cheie {
 		case 1:
+			fmt.Println("Matrice adiacenta")
 			matrix := citireMatriceAdiacenta()
-			fmt.Println(matrix)
+			printMatrice(matrix)
+			fmt.Println()
 
+			fmt.Println("Matrice incidenta")
 			matrixI := adiacentaToIncidenta(matrix)
-			fmt.Println(matrixI)
+			printMatrice(matrixI)
+			fmt.Println()
 
+			fmt.Println("Lista arce")
 			e1, e2 := adiacentaToListaArce(matrix)
 			fmt.Println(e1)
 			fmt.Println(e2)
+			fmt.Println()
 
+			fmt.Println("Lista succesori")
 			s1, s2 := adiacentaToListaSuc(matrix)
 			fmt.Println(s1)
 			fmt.Println(s2)
+			fmt.Println()
 
+			fmt.Println("Lista predecesori")
 			p1, p2 := adiacentaToListaPre(matrix)
 			fmt.Println(p1)
 			fmt.Println(p2)
+			fmt.Println()
 		case 2:
+			fmt.Println("Matrice incidenta")
 			matrix := citireMatriceIncidenta()
-			fmt.Println(matrix)
+			printMatrice(matrix)
+			fmt.Println()
 
+			fmt.Println("Matrice adiacenta")
 			matrixI := incidentaToAdiacenta(matrix)
-			fmt.Println(matrixI)
+			printMatrice(matrixI)
+			fmt.Println()
 
+			fmt.Println("Lista arce")
 			e1, e2 := incidentaToListaArce(matrix)
 			fmt.Println(e1)
 			fmt.Println(e2)
+			fmt.Println()
 
+			fmt.Println("Lista succesori")
 			s1, s2 := incidentaToListaSuc(matrix)
 			fmt.Println(s1)
 			fmt.Println(s2)
+			fmt.Println()
 
+			fmt.Println("Lista predecesori")
 			p1, p2 := incidentaToListaPre(matrix)
 			fmt.Println(p1)
 			fmt.Println(p2)
+			fmt.Println()
 		case 3:
+			fmt.Println("Lista arce")
 			n, e1, e2 := citireListaArce()
-			fmt.Println(n)
 			fmt.Println(e1)
 			fmt.Println(e2)
+			fmt.Println()
 
+			fmt.Println("Matrice adiacenta")
 			matrix := listaArceToAdiacenta(n, e1, e2)
-			fmt.Println(matrix)
+			printMatrice(matrix)
+			fmt.Println()
 
+			fmt.Println("Matrice incidenta")
 			matrixI := listaArceToIncidenta(n, e1, e2)
-			fmt.Println(matrixI)
+			printMatrice(matrixI)
+			fmt.Println()
 
+			fmt.Println("Lista succesori")
 			s1, s2 := listaArceToListaSuc(n, e1, e2)
 			fmt.Println(s1)
 			fmt.Println(s2)
+			fmt.Println()
 
+			fmt.Println("Lista predecesori")
 			p1, p2 := listaArceToListaPre(n, e1, e2)
 			fmt.Println(p1)
 			fmt.Println(p2)
+			fmt.Println()
 		case 4:
+			fmt.Println("Lista succesori")
 			e1, e2 := citireListaSuc()
 			fmt.Println(e1)
 			fmt.Println(e2)
+			fmt.Println()
 
+			fmt.Println("Matrice adiacenta")
 			matrix := listaSucToAdiacenta(e1, e2)
-			fmt.Println(matrix)
+			printMatrice(matrix)
+			fmt.Println()
 
+			fmt.Println("Matrice incidenta")
 			matrixI := listaSucToIncidenta(e1, e2)
-			fmt.Println(matrixI)
+			printMatrice(matrixI)
+			fmt.Println()
 
+			fmt.Println("Lista arce")
 			s1, s2 := listaSucToListaArce(e1, e2)
 			fmt.Println(s1)
 			fmt.Println(s2)
+			fmt.Println()
 
+			fmt.Println("Lista predecesori")
 			p1, p2 := listaSucToListaPre(e1, e2)
 			fmt.Println(p1)
 			fmt.Println(p2)
+			fmt.Println()
 		case 5:
+			fmt.Println("Lista predecesori")
 			e1, e2 := citireListaPre()
 			fmt.Println(e1)
 			fmt.Println(e2)
+			fmt.Println()
 
+			fmt.Println("Matrice adiacenta")
 			matrix := listaPreToAdiacenta(e1, e2)
-			fmt.Println(matrix)
+			printMatrice(matrix)
+			fmt.Println()
 
+			fmt.Println("Matrice incidenta")
 			matrixI := listaPreToIncidenta(e1, e2)
-			fmt.Println(matrixI)
+			printMatrice(matrixI)
+			fmt.Println()
 
+			fmt.Println("Lista arce")
 			s1, s2 := listaPreToListaArce(e1, e2)
 			fmt.Println(s1)
 			fmt.Println(s2)
+			fmt.Println()
 
+			fmt.Println("Lista succesori")
 			p1, p2 := listaPreToListaSuc(e1, e2)
 			fmt.Println(p1)
 			fmt.Println(p2)
+			fmt.Println()
 		case 6:
 			end = true
 		}
